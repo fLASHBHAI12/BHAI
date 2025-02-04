@@ -8,7 +8,7 @@ from datetime import datetime, timedelta, timezone
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 # Telegram bot token and channel ID
-TOKEN = '7809162200:AAHcNMP9oSstR73dxO25BT20KN8z8y894uU'  # Replace with your actual bot token
+TOKEN = '7581868845:AAHM-hj5tFuckYX7d7sj05grOAyPn5DzQQw'  # Replace with your actual bot token
 ADMIN_IDS = [7479349647]  # Added new admin ID
 CHANNEL_ID = '-1002439558968' # Replace with your specific channel or group ID
 # Initialize the bot
@@ -22,7 +22,7 @@ user_bans = {}  # Tracks user ban status and ban expiry time
 reset_time = datetime.now().astimezone(timezone(timedelta(hours=5, minutes=10))).replace(hour=0, minute=0, second=0, microsecond=0)
 
 # Cooldown duration (in seconds)
-COOLDOWN_DURATION = 10  # 5 minutes
+COOLDOWN_DURATION = 60  # 5 minutes
 BAN_DURATION = timedelta(minutes=1)  
 DAILY_ATTACK_LIMIT = 15  # Daily attack limit per user
 
