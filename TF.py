@@ -84,7 +84,7 @@ def show_help(message):
         "📜 `/help` - 🏆 *View this epic menu!*\n"
         "⚡ `/status` - 🚀 *Check your battle status!*\n"
         "✅ `/verify` - 🔓 *Unlock exclusive features!*\n"
-        "💀 `/OPXTF` - 🎯 *Launch your attack!* *(Verified users only)*\n"
+        "💀 `/bgmi` - 🎯 *Launch your attack!* *(Verified users only)*\n"
         "📸 *Send a Photo* - 🔥 *Submit feedback!* \n\n"
         "━━━━━━━━━━━━━━━━━━━━━\n"
         "💠 *『 𝗔𝗗𝗠𝗜𝗡 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦 』* 💠\n"
@@ -230,7 +230,7 @@ def verify_user(message):
                 message.chat.id,
                 "✅✨ *𝗩𝗘𝗥𝗜𝗙𝗜𝗖𝗔𝗧𝗜𝗢𝗡 𝗦𝗨𝗖𝗖𝗘𝗦𝗦𝗙𝗨𝗟!* ✨✅\n\n"
                 "🎉 𝗪𝗲𝗹𝗰𝗼𝗺𝗲! 𝗬𝗼𝘂 𝗮𝗿𝗲 𝗻𝗼𝘄 𝗮 𝗩𝗲𝗿𝗶𝗳𝗶𝗲𝗱 𝗨𝘀𝗲𝗿. 🚀\n"
-                "🔗 𝗬𝗼𝘂 𝗰𝗮𝗻 𝗻𝗼𝘄 𝗮𝗰𝗰𝗲𝘀𝘀 `/OPXTF` 𝘀𝗲𝗿𝘃𝗶𝗰𝗲𝘀! ⚡"
+                "🔗 𝗬𝗼𝘂 𝗰𝗮𝗻 𝗻𝗼𝘄 𝗮𝗰𝗰𝗲𝘀𝘀 `/bgmi` 𝘀𝗲𝗿𝘃𝗶𝗰𝗲𝘀! ⚡"
             )
         else:
             bot.send_message(
@@ -249,8 +249,8 @@ def verify_user(message):
         )
 
 
-# ⚠️ Modify /OPXTF to check live membership
-@bot.message_handler(commands=['OPXTF'])
+# ⚠️ Modify /bgmi to check live membership
+@bot.message_handler(commands=['bgmi'])
 def TF_command(message):
     user_id = message.from_user.id
 
@@ -278,7 +278,7 @@ def TF_command(message):
     bot.send_message(
         message.chat.id,
         "✅ *𝗩𝗘𝗥𝗜𝗙𝗜𝗘𝗗!* 🎉\n"
-        "🚀 𝗬𝗼𝘂 𝗮𝗿𝗲 𝗮 𝗽𝗮𝗿𝘁 𝗼𝗳 𝘁𝗵𝗲 𝗲𝗹𝗶𝘁𝗲! 𝗘𝘅𝗲𝗰𝘂𝘁𝗶𝗻𝗴 `/OPXTF`... 🔥"
+        "🚀 𝗬𝗼𝘂 𝗮𝗿𝗲 𝗮 𝗽𝗮𝗿𝘁 𝗼𝗳 𝘁𝗵𝗲 𝗲𝗹𝗶𝘁𝗲! 𝗘𝘅𝗲𝗰𝘂𝘁𝗶𝗻𝗴 `/bgmi`... 🔥"
     )
 
 
@@ -351,7 +351,7 @@ def TF_command(message):
         logging.info(f"Received arguments: {args}")
 
         if len(args) != 3:
-            raise ValueError("TF_FLASH92 𝘅 𝗗𝗶𝗟𝗗𝗢𝗦™ 𝗣𝗨𝗕𝗟𝗶𝗖 𝗕𝗢𝗧 𝗔𝗖𝗧𝗶𝗩𝗘 ✅ \n\n⚙ USE THIS 👇⬇️\n/TF <IP> <PORT> <DURATION>")
+            raise ValueError("TF_FLASH92 𝘅 𝗗𝗶𝗟𝗗𝗢𝗦™ 𝗣𝗨𝗕𝗟𝗶𝗖 𝗕𝗢𝗧 𝗔𝗖𝗧𝗶𝗩𝗘 ✅ \n\n⚙ USE THIS 👇⬇️\n/bgmi <IP> <PORT> <DURATION>")
 
         target_ip, target_port, user_duration = args
 
