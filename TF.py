@@ -210,18 +210,18 @@ def handle_photo(message):
     bot.send_message(FEEDBACK_CHANNEL_ID, channel_response)
 
 
-# Store verified users
-verified_users = set()
-
 # Private channel username (not ID)
 PRIVATE_CHANNEL_USERNAME = "PUBLIC_FEEDBACK1"  # Example: "MyPrivateChannel"
 PRIVATE_CHANNEL_LINK = "https://t.me/PUBLIC_FEEDBACK1"  # Replace with actual link
+
+# Store verified users
+verified_users = set()
 
 # ✅ Command to verify after joining
 @bot.message_handler(commands=['verify'])
 def verify_user(message):
     user_id = message.from_user.id
-    
+
     try:
         chat_member = bot.get_chat_member(f"@{PRIVATE_CHANNEL_USERNAME}", user_id)
         if chat_member.status in ["member", "administrator", "creator"]:
@@ -229,56 +229,59 @@ def verify_user(message):
             bot.send_message(
                 message.chat.id,
                 "✅✨ *𝗩𝗘𝗥𝗜𝗙𝗜𝗖𝗔𝗧𝗜𝗢𝗡 𝗦𝗨𝗖𝗖𝗘𝗦𝗦𝗙𝗨𝗟!* ✨✅\n\n"
-                "🎉 𝗪𝗲𝗹𝗰𝗼𝗺𝗲! 𝗬𝗼𝘂 𝗮𝗿𝗲 𝗻𝗼𝘄 𝗮 𝗩𝗲𝗿𝗶𝗳𝗶𝗲𝗱 𝗨𝘀𝗲𝗿. 🚀\n"
-                "🔗 𝗬𝗼𝘂 𝗰𝗮𝗻 𝗻𝗼𝘄 𝗮𝗰𝗰𝗲𝘀𝘀 `/bgmi` 𝘀𝗲𝗿𝘃𝗶𝗰𝗲𝘀! ⚡"
+                "🎉 You are now verified! 🚀\n"
+                "🔗 You can now use `/bgmi` command! ⚡"
             )
         else:
             bot.send_message(
                 message.chat.id,
                 f"🚨 *𝗩𝗘𝗥𝗜𝗙𝗜𝗖𝗔𝗧𝗜𝗢𝗡 𝗙𝗔𝗜𝗟𝗘𝗗!* 🚨\n\n"
                 f"🔗 [Join our Channel]({PRIVATE_CHANNEL_LINK}) 📩\n"
-                "⚠️ 𝗔𝗳𝘁𝗲𝗿 𝗷𝗼𝗶𝗻𝗶𝗻𝗴, 𝗿𝘂𝗻 `/verify` 𝗮𝗴𝗮𝗶𝗻.",
+                "⚠️ After joining, run `/verify` again.",
                 parse_mode="Markdown"
             )
-    except Exception:
+    except Exception as e:
         bot.send_message(
             message.chat.id,
-            f"⚠️ *𝗘𝗿𝗿𝗼𝗿 𝗖𝗵𝗲𝗰𝗸𝗶𝗻𝗴 𝗬𝗼𝘂𝗿 𝗠𝗲𝗺𝗯𝗲𝗿𝘀𝗵𝗶𝗽!* ⚠️\n\n"
-            f"📌 𝗠𝗮𝗸𝗲 𝘀𝘂𝗿𝗲 𝘆𝗼𝘂 𝗵𝗮𝘃𝗲 𝗷𝗼𝗶𝗻𝗲𝗱: [Click Here]({PRIVATE_CHANNEL_LINK})",
+            f"⚠️ *𝗘𝗿𝗿𝗼𝗿 𝗩𝗲𝗿𝗶𝗳𝘆𝗶𝗻𝗴!* ⚠️\n\n"
+            f"📌 Ensure you have joined: [Click Here]({PRIVATE_CHANNEL_LINK})\n\n"
+            f"Error: `{e}`",
             parse_mode="Markdown"
         )
 
-
-# ⚠️ Modify /bgmi to check live membership
+# ✅ Modify /bgmi to check live membership
 @bot.message_handler(commands=['bgmi'])
-def TF_command(message):
+def bgmi_command(message):
     user_id = message.from_user.id
 
     try:
         chat_member = bot.get_chat_member(f"@{PRIVATE_CHANNEL_USERNAME}", user_id)
+
+        # If user is no longer in the channel, remove verification
         if chat_member.status not in ["member", "administrator", "creator"]:
             verified_users.discard(user_id)
             bot.send_message(
                 message.chat.id,
                 f"🚨 *𝗔𝗖𝗖𝗘𝗦𝗦 𝗗𝗘𝗡𝗜𝗘𝗗!* 🚨\n\n"
                 f"🔗 [Click Here to Rejoin]({PRIVATE_CHANNEL_LINK})\n"
-                "📌 𝗧𝗵𝗲𝗻 𝗿𝘂𝗻 `/verify` 𝗮𝗴𝗮𝗶𝗻 𝘁𝗼 𝗿𝗲𝗴𝗮𝗶𝗻 𝗮𝗰𝗰𝗲𝘀𝘀!",
+                "📌 Then run `/verify` again to regain access!",
                 parse_mode="Markdown"
             )
             return
     except Exception:
         bot.send_message(
             message.chat.id,
-            f"⚠️ *𝗘𝗿𝗿𝗼𝗿 𝗩𝗲𝗿𝗶𝗳𝘆𝗶𝗻𝗴 𝗬𝗼𝘂!* ⚠️\n\n"
-            f"📌 𝗠𝗮𝗸𝗲 𝘀𝘂𝗿𝗲 𝘆𝗼𝘂 𝗵𝗮𝘃𝗲 𝗷𝗼𝗶𝗻𝗲𝗱: [Click Here]({PRIVATE_CHANNEL_LINK})",
+            f"⚠️ *𝗘𝗿𝗿𝗼𝗿 𝗖𝗵𝗲𝗰𝗸𝗶𝗻𝗴 𝗠𝗲𝗺𝗯𝗲𝗿𝘀𝗵𝗶𝗽!* ⚠️\n\n"
+            f"📌 Ensure you have joined: [Click Here]({PRIVATE_CHANNEL_LINK})",
             parse_mode="Markdown"
         )
         return
 
+    # ✅ User is verified & still in the channel, allow `/bgmi` command
     bot.send_message(
         message.chat.id,
         "✅ *𝗩𝗘𝗥𝗜𝗙𝗜𝗘𝗗!* 🎉\n"
-        "🚀 𝗬𝗼𝘂 𝗮𝗿𝗲 𝗮 𝗽𝗮𝗿𝘁 𝗼𝗳 𝘁𝗵𝗲 𝗲𝗹𝗶𝘁𝗲! 𝗘𝘅𝗲𝗰𝘂𝘁𝗶𝗻𝗴 `/bgmi`... 🔥"
+        "🚀 You can now use `/bgmi`! 🔥"
     )
 
 
